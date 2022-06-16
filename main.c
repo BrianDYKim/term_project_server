@@ -7,7 +7,9 @@
 void error_handling(char *msg); // 에러 발생시 에러를 핸들링하는 함수
 
 int main(int argc, char *argv[]) {
-    printf("Hello, World!\n");
+    for(int i = 0; i < argc; i++)
+        printf("%s\n", *(argv + i));
+
     return 0;
 }
 
