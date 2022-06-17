@@ -101,6 +101,7 @@ void *handle_client(void *arg) {
 
     while ((str_len = read(client_socket, message, sizeof(message))) != 0) {
         if (is_whisper(message, whisper_target_name, whisper_src_name)) {
+            printf("Whisper on!!\n");
             send_message_to_one(message, str_len, whisper_target_name, whisper_src_name);
         } else {
             send_message_to_all(message, str_len);
@@ -173,10 +174,9 @@ void send_message_to_one(char *message, int len, char *target_name, char *src_na
     target_client = find_client_by_name(&client_list, target_name);
 
     if (target_client == NULL) {
-        sprintf(error_message, "Client [%s] doesn't exist here!!\n\n", target_name);
+        sprintf(error_message, "Client [%s] doesn't exist here!!\n", target_name);
         int err_msg_len = strlen(error_message);
-        write(find_client_by_name(&client_list, src_name)->client_socket, error_message, err_msg_len);
-        printf("error!\n");
+        send(find_client_by_name(&client_list, src_name)->client_socket, error_message, err_msg_len, 0);
     } else {
         write(target_client->client_socket, message, len);
     }
