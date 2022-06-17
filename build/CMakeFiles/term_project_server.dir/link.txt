@@ -1,0 +1,1 @@
+/usr/bin/cc -pthread   CMakeFiles/term_project_server.dir/main.c.o CMakeFiles/term_project_server.dir/client_list.c.o  -o term_project_server 

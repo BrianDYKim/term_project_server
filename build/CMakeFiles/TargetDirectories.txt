@@ -1,0 +1,3 @@
+/home/ubuntu/term_project_server/build/CMakeFiles/rebuild_cache.dir
+/home/ubuntu/term_project_server/build/CMakeFiles/edit_cache.dir
+/home/ubuntu/term_project_server/build/CMakeFiles/term_project_server.dir
