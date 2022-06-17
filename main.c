@@ -145,9 +145,6 @@ int is_whisper(char *message, char *dest_name, char *src_name) {
         token_buffer = strtok_r(NULL, DELIM_CHARS, &next_buffer);
     }
 
-    free(next_buffer);
-    free(token_buffer);
-
     return sig;
 }
 
