@@ -158,6 +158,7 @@ void send_message(char *message, int len, char *dest_name, char *src_name) {
     char error_message[BUF_SIZE];
 
     if (strcmp(dest_name, "all") == 0) {
+        printf("user %s sent message [%s] to all\n", src_name, message);
         // 공유자원에 대한 lock
         pthread_mutex_lock(&mutex);
         for (i = 0; i < client_cnt; i++)
@@ -169,6 +170,7 @@ void send_message(char *message, int len, char *dest_name, char *src_name) {
 
         // target이 현재 채팅방에 존재하는 경우
         if (target_socket != -1) {
+            printf("user %s sent message [%s] to [%s]\n", src_name, message, dest_name);
             write(target_socket, message, len);
         }
         // target이 현재 채팅방에 존재하지도 않는 경우
@@ -176,6 +178,7 @@ void send_message(char *message, int len, char *dest_name, char *src_name) {
             int src_socket = find_client_by_name(client_list, client_cnt, src_name);
             sprintf(error_message, "Client [%s] doesn't exist here!!\n", dest_name);
             int error_message_len = strlen(error_message);
+            printf("user %s error! [%s]\n", src_name, message);
             send(src_socket, error_message, error_message_len, 0);
         }
         pthread_mutex_unlock(&mutex);
