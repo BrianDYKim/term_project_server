@@ -5,10 +5,12 @@
 #ifndef TERM_PROJECT_SERVER_CLIENT_INFO_H
 #define TERM_PROJECT_SERVER_CLIENT_INFO_H
 
+#define NAME_SIZE 20
+
 // client를 관리할 구조체 선언
 typedef struct client_info {
     int client_socket; // client에 해당하는 socket descriptor
-    char* name; // client의 이름
+    char name[NAME_SIZE]; // client의 이름
 }Client;
 
 // 새로운 client를 생성하는 함수

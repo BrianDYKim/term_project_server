@@ -12,7 +12,7 @@
 Client* create_client(int client_socket, char* name) {
     Client* new_client = (Client*)malloc(sizeof(Client));
     new_client->client_socket = client_socket;
-    new_client->name = name;
+    strcpy(new_client->name, name);
 
     return new_client;
 }
