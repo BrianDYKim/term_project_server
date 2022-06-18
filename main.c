@@ -19,6 +19,7 @@ void error_handling(char *msg); // 에러 발생시 에러를 핸들링하는 �
 void *handle_client(void *arg); // 자식 thread에 전달할 함수 포인터
 void send_message(char *message, int len, char *dest_name, char *src_name); // 메시지를 send하는 함수
 void whisper_init(char *message, char *dest_name, char *src_name); // 메세지의 대상 이름, 주체 이름을 저장하는 함수
+void print_client_list();
 
 // critical sections
 int client_cnt = 0; // 접속한 사용자의 수
@@ -68,6 +69,7 @@ int main(int argc, char *argv[]) {
         // server가 관리하는 client 접속 정보 세팅 (mutex를 이용해서 race condition issue 해결)
         pthread_mutex_lock(&mutex);
         client_list[client_cnt++] = new_client;
+        print_client_list();
         pthread_mutex_unlock(&mutex);
 
         // thread 생성 및 thread_detach 등록 -> thread detach는 non-blocking function
@@ -183,4 +185,11 @@ void send_message(char *message, int len, char *dest_name, char *src_name) {
         }
         pthread_mutex_unlock(&mutex);
     }
+}
+
+void print_client_list() {
+    printf("==========[Current Clients]==========\n");
+    for(int i = 0; i < client_cnt; i++)
+        printf("user_name: %s, socket: %d\n", client_list[i]->name, client_list[i]->client_socket);
+    printf("==========[END]==========\n");
 }
