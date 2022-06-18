@@ -57,14 +57,16 @@ int main(int argc, char *argv[]) {
         error_handling("listen() error!");
 
     while (1) {
+        char new_client_name[NAME_SIZE];
         client_adr_size = sizeof(client_adr);
         client_socket = accept(server_socket, (struct sockaddr *) &client_adr,
                                &client_adr_size); // accept 함수를 통해 client의 접속을 스니핑
 
         // connect가 이뤄지자마자 이름 정보를 가져온다
         client_name_len = read(client_socket, client_name, BUF_SIZE);
-        client_name[client_name_len] = 0;
-        Client *new_client = create_client(client_socket, client_name);
+        strcpy(new_client_name, client_name);
+        new_client_name[client_name_len] = 0;
+        Client *new_client = create_client(client_socket, new_client_name);
 
         // server가 관리하는 client 접속 정보 세팅 (mutex를 이용해서 race condition issue 해결)
         pthread_mutex_lock(&mutex);
