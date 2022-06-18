@@ -6,14 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/ubuntu/term_project_server/client_list.c
-client_list.h
-/home/ubuntu/term_project_server/client_list.h
-stdlib.h
--
-string.h
--
-
 /home/ubuntu/term_project_server/client_list.h
 
 /home/ubuntu/term_project_server/main.c
